@@ -1,50 +1,66 @@
 const tea = window.tea.tea
 
-const { diff, render, mount, elements, attributes } = tea.HTML
-
-const { div, h1, p, li, ul, input, button } = elements
+const { elements, attributes, mount } = tea.HTML
+const { div, h1, button, span } = elements
 const { click, className, style } = attributes
+ 
+const time = new Date()
 
-//this is the default app model.
-const MODEL = { 
-    greeting: 'Hello',
-    active: false
+const MODEL = {
+    hour: time.getHours(),
+    minute: time.getMinutes(),
+    second: time.getSeconds(),
+    pm: false
 }
 
-//an event. Events must return a Tea State object { model?: any, view?: VDOM, selector: string } 
-const handleClick = (_e, {model}) => ({
-    model: { 
-        greeting: !model.active ? 'Bonjour' : 'Hello', 
-        active: !model.active 
-    },
-    view: hello,
-    task: ({model}) => alert(JSON.stringify(model))
-})
+const onSecond = ({model}, ) => {
+    const time = new Date()
+    return {
+        model: {
+            second: time.getSeconds(),
+            minute: model.second === 59 ? time.getMinutes() : model.minute,
+            hour: model.minute === 59 ? time.getHours() : model.hour,
+            pm: time.getHours >= 12
+        },      
+        view: app
+    }
+}
+const getCorrectedHour = hour => hour > 12 ? hour - 12 : hour
 
-//a component that takes the Tea State's model property as an argument and produces HTML
-const inner = ({active}) => 
-    div([ className(active ? 'magenta' : 'hidden')],
-        [ p([ style({textStyle: 'italic'})],
-            [ `this is some text.`
-            ]) 
+const clock = ({hour, minute, second, pm}) =>
+    div([ className('container')],
+        [ div ([ className('tea') ],
+               [ `TEATIME` ]),
+          span([ className('digit') ], 
+               [ `${getCorrectedHour(hour).toString().length < 2 
+                        ? '0'+getCorrectedHour(hour) 
+                        : getCorrectedHour(hour)
+                  }` 
+               ]),
+          span([ className('digit') ],
+               [ `:` 
+               ]),
+          span([ className('digit') ], 
+               [ `${minute.toString().length < 2 ? '0'+minute : minute}` 
+               ]),
+          span([ className('digit') ],
+               [ `:` 
+               ]),
+          span([ className('digit') ], 
+               [ `${second.toString().length < 2 ? '0'+second : second}` 
+               ]),
+          span([ className('digit-small') ],
+               [ `${pm ? 'a.m.' : 'p.m.'}`])
         ])
 
-// Entry component. Takes the full Tea State object as a parameter. Returns a VDOM object.
-const hello = ({model}) => 
-    div([ className(model.active ? 'red' : 'blue')],
-        [ h1    ([],
-                    [`${model.greeting}, World!`
-                    ]),
-          button([ click(handleClick)
-                    ], 
-                    [ `click me`
-                    ]),
-          inner(model)
-        ])
+const app = ({model}) => clock(model)
 
-//start the program with these initial Tea State parameters
 mount(() => ({
     selector: '#root',
-    view: hello,
-    model: MODEL
+    model: MODEL,
+    view: app,
+    interval: [{
+        func: onSecond,
+        ms: 1000
+    }]
 }))

@@ -38,7 +38,7 @@ function getAttsPatch(prev, next) {
         att_ups.push(d => //match ->
             typeof value === 'function' ? drop(d)
         :   prop === 'style'            ? (d.style = next.style, d) 
-        :   prop === 'className'        ? (d.className -= value, d)
+        :   prop === 'className'        ? (d.className = '', d)
         :   /*else*/                      (d.removeAttribute(prop), d)
         ) //end match
 
@@ -60,7 +60,7 @@ function getAttsPatch(prev, next) {
         if(i >= prev.length) {
             att_ups.push(d => //match ->
                 typeof value === 'function' ? (getTeaEvent(prop, value, d), d)
-            :   prop === 'className'        ? (d.className += value, d)
+            :   prop === 'className'        ? (d.className = value, d)
             :   prop === 'style'            ? (d.style = next.style, d)
             :   /* else */                    (d.setAttribute(prop, value), d)
             )//end match
@@ -78,7 +78,7 @@ function getAttsPatch(prev, next) {
                 value === null              ? (runRemoveCheck(), d)
             :   typeof value === 'function' ? (d.addEventListener(prop, value), d)
             :   prop === 'style'            ? (d.style = next.style, d)
-            :   prop === 'className'        ? (d.className += value, d)
+            :   prop === 'className'        ? (d.className = value, d)
             :   /**else */                    (d.setAttribute(prop), d)
             )
         //end standard branch

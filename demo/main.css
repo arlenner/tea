@@ -1,0 +1,23 @@
+.red {
+    transition: all .3s cubic-bezier(0.23, 1, 0.320, 1);
+    background-color: red; 
+}
+
+.blue { 
+    transition: all .3s cubic-bezier(0.23, 1, 0.320, 1);
+    background-color: blue; 
+}
+
+.magenta {
+    position: absolute;
+    transition: all .3s cubic-bezier(0.23, 1, 0.320, 1);
+    background-color: magenta;
+    color: white;
+    left: 0
+}
+
+.hidden {
+    transition: all .3s cubic-bezier(0.23, 1, 0.320, 1);
+    position: absolute;
+    left: -100%;
+}

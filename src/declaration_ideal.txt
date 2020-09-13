@@ -1,0 +1,27 @@
+
+// IDEAL END POINT
+
+const MyComponent = ({some, state, params}) => 
+    div([ id('my-div'), className('container') ],
+        [ div([ className('header')],
+              [ h1([ className('title')],
+                   [ 'Hello Card' 
+                   ]),
+                p ([ className('content')],
+                   [ `${state.content}` 
+                   ])
+              ])
+        ])
+
+import {iconComponent} from './iconcomponent'
+
+const icons = ['twitter', 'fb', ...]
+
+const MyOtherComponent = (state) => 
+    __([ MyComponent({some: 'data'}),
+         footer([ className('footer')],
+                [ a([href('my-twitter.bleh') ],
+                    [ icons.map(iconComponent)
+                    ])
+                ])
+       ])

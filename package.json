@@ -1,0 +1,53 @@
+{
+  "name": "tea",
+  "version": "1.4.9",
+  "description": "Javascript Minimal VDOM renderer.",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "jest",
+    "prepare": "npm run build",
+    "trypublish": "npm publish || true",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arlenner/tea"
+  },
+  "author": "Alexander Ross Lennert <arlenross02@gmail.com> (https://github.com/arlenner)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arlenner/tea/issues"
+  },
+  "homepage": "https://github.com/arlenner/tea",
+  "keywords": [
+    "library",
+    "starter",
+    "es6"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "babel-preset-minify": "^0.5.0",
+    "css-loader": "^4.2.2",
+    "file-loader": "^6.1.0",
+    "gh-pages": "^3.1.0",
+    "jest": "^26.4.2",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {},
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/scripts/testMock.js",
+      "\\.(css|less)$": "<rootDir>/scripts/testMock.js"
+    }
+  }
+}

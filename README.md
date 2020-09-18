@@ -25,14 +25,4 @@ This will output typical Hello World application:
 
 -   Receive input and push output with the same simple model throughout the application
 
--   Isolate side-effects within the 'task' portion of the Tea State Object.
-
-```javascript
-    //the task is handled on a separate loop apart from standard state updates
-    //so we can isolate side-effects. Is also passed the Tea State object
-    const handleClick = (e, {model}) => ({
-        task: () => alert(`${JSON.stringify(model)}`)
-    })
-
-```
 
